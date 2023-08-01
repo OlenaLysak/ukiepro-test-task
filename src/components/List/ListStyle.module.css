@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  width: 90%;
+}
+
+.headers {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-weight: 700;
+  border-bottom: 1px lightgrey;
+  padding: 10px 0;
+}
+
+.itemTypeHeader {
+  width: 150px;
+}

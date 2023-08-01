@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+
+//Style
+import styles from './App.module.css';
+
+//Components
+import ToggleButton from './components/Buttons/ToggleButton';
+import List from './components/List/List';
+
+//Context
+import { useTheme } from './context/ThemeContext';
 
 function App() {
+  const { isDarkTheme } = useTheme();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className={`${styles.App} ${
+        isDarkTheme ? styles.darkTheme : styles.lightTheme
+      }`}
+    >
+      <header className={styles.AppHeader}>Ukiepro Test Task</header>
+      <ToggleButton />
+      <List />
     </div>
   );
 }

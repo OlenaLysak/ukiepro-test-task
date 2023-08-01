@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid 1px lightgrey;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.type {
+  width: 150px;
+  /* border: solid 1px red; */
+  /* height: 30px; */
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.icon {
+  background-color: green;
+  border-radius: 50%;
+  color: white;
+  padding: 2px;
+  margin: 3px;
+}

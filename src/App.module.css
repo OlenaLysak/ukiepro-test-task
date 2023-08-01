@@ -1,0 +1,21 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.AppHeader {
+  font-size: 40px;
+  margin: 20px;
+}
+
+.darkTheme {
+  background-color: darkslategrey;
+  color: white;
+}
+
+.lightTheme {
+  background-color: white;
+  color: darkslategrey;
+}
