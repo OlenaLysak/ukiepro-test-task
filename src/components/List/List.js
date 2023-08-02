@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //Style
 import styles from './ListStyle.module.css';
@@ -10,20 +10,37 @@ import ListItem from './ListItem';
 import AddButton from '../Buttons/AddButton';
 import DialogForm from '../DialogForm/DialogForm';
 import Pagination from '../Pagination/Pagination';
+import FilterPanel from '../Filter/FilterPanel';
 
 //Utils
 import { editObjectById } from '../../utils/dataUtils';
 
 const List = () => {
   const [list, setList] = useState(mockedList);
+  const [filteredList, setFilteredList] = useState(list);
   const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
+  const [currentItems, setCurrentItems] = useState([]);
 
-  // Calculate the current items to display based on the current page number and items per page
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = list.slice(indexOfFirstItem, indexOfLastItem);
+  const filterList = (inputName) => {
+    setFilteredList(() => {
+      return list.filter((item) => {
+        return item.name.includes(inputName);
+      });
+    });
+  };
+
+  useEffect(() => {
+    // Calculate the current items to display based on the current page number and items per page
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setCurrentItems(filteredList.slice(indexOfFirstItem, indexOfLastItem));
+  }, [filteredList, currentPage, list]);
+
+  useEffect(() => {
+    setFilteredList(list);
+  }, [list]);
 
   // Pagination function
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -50,6 +67,7 @@ const List = () => {
 
   return (
     <div className={styles.wrapper}>
+      <FilterPanel filterList={filterList} />
       <div className={styles.headers}>
         <div className={styles.itemTypeHeader}>Category</div>
         <div className={styles.itemTypeHeader}>Name</div>
@@ -67,7 +85,7 @@ const List = () => {
       })}
       <Pagination
         itemsPerPage={itemsPerPage}
-        totalItems={list.length}
+        totalItems={filteredList.length}
         paginate={paginate}
         currentPage={currentPage}
       />
