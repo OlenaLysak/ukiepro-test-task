@@ -1,0 +1,25 @@
+.buttonContainer {
+  cursor: pointer;
+  border: solid 1px green;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 150px;
+  justify-content: center;
+  padding: 5px;
+}
+
+.icon {
+  background-color: green;
+  border-radius: 50%;
+  color: white;
+  padding: 2px;
+  margin-right: 10px;
+}
+
+.text {
+  font-weight: 800;
+  font-size: 15px;
+  color: green;
+}

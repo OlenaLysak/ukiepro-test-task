@@ -3,13 +3,16 @@ import React from 'react';
 //Icon
 import AddIcon from '@mui/icons-material/Add';
 
-const AddButton = () => {
+//Style
+import styles from './AddButtonStyle.module.css';
+
+const AddButton = ({ handleClick }) => {
   return (
-    <div>
+    <div className={styles.buttonContainer} onClick={handleClick}>
       <div>
-        <AddIcon />
+        <AddIcon className={styles.icon} fontSize="small" />
       </div>
-      <div>REQUISITION</div>
+      <div className={styles.text}>REQUISITION</div>
     </div>
   );
 };
