@@ -8,13 +8,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 
-//Utils
-import { generateUniqueId } from '../../utils/dataUtils';
-
-const DialogForm = ({ open, handleClose, handleAddItem }) => {
-  const [category, setCategory] = useState('');
-  const [name, setName] = useState('');
-  const [text, setText] = useState('');
+const EditForm = ({ open, handleClose, defaultValues, handleEdit }) => {
+  const {
+    id,
+    category: defaultCategory,
+    name: defaultName,
+    text: defaultText,
+  } = defaultValues;
+  const [category, setCategory] = useState(defaultCategory);
+  const [name, setName] = useState(defaultName);
+  const [text, setText] = useState(defaultText);
   const [error, setError] = useState(false);
 
   const handleCategoryChange = (event) => {
@@ -30,17 +33,18 @@ const DialogForm = ({ open, handleClose, handleAddItem }) => {
   };
 
   const handleSubmit = () => {
+    //Validation
     if (name.trim()) {
       // Perform your desired action with the valid input
       setError(false);
 
       const newItem = {
-        id: generateUniqueId(),
+        id,
         name,
         category,
         text,
       };
-      handleAddItem(newItem);
+      handleEdit(newItem);
 
       //Reset form
       setCategory('');
@@ -50,14 +54,6 @@ const DialogForm = ({ open, handleClose, handleAddItem }) => {
     } else {
       setError(true);
     }
-  };
-
-  const handleCancel = () => {
-    setError(false);
-    setCategory('');
-    setName('');
-    setText('');
-    handleClose();
   };
 
   return (
@@ -81,7 +77,7 @@ const DialogForm = ({ open, handleClose, handleAddItem }) => {
             value={name}
             onChange={handleNameChange}
             error={error}
-            required // Set the field as required
+            required
             helperText={error ? 'Field cannot be empty' : ''}
           />
           <TextField
@@ -96,7 +92,7 @@ const DialogForm = ({ open, handleClose, handleAddItem }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button color="success" onClick={handleCancel}>
+          <Button color="success" onClick={handleClose}>
             Cancel
           </Button>
           <Button onClick={handleSubmit}>Save</Button>
@@ -106,4 +102,4 @@ const DialogForm = ({ open, handleClose, handleAddItem }) => {
   );
 };
 
-export default DialogForm;
+export default EditForm;

@@ -10,11 +10,14 @@ import ListItem from './ListItem';
 import AddButton from '../Buttons/AddButton';
 import DialogForm from '../DialogForm/DialogForm';
 
+//Utils
+import { editObjectById } from '../../utils/dataUtils';
+
 const List = () => {
   const [list, setList] = useState(mockedList);
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
+  const handleOpen = () => {
     setOpen(true);
   };
 
@@ -30,6 +33,10 @@ const List = () => {
     setList((prevItems) => [...prevItems, newItem]);
   };
 
+  const handleEdit = (newItem) => {
+    setList((prevItems) => editObjectById(prevItems, newItem));
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.headers}>
@@ -39,10 +46,15 @@ const List = () => {
       </div>
       {list.map((item) => {
         return (
-          <ListItem key={item.id} item={item} handleDelete={handleDelete} />
+          <ListItem
+            key={item.id}
+            item={item}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+          />
         );
       })}
-      <AddButton handleClick={handleClick} />
+      <AddButton handleOpen={handleOpen} />
       <DialogForm
         open={open}
         handleClose={handleClose}
