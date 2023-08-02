@@ -9,6 +9,7 @@ import mockedList from '../../mockedData/mockedListData.json';
 import ListItem from './ListItem';
 import AddButton from '../Buttons/AddButton';
 import DialogForm from '../DialogForm/DialogForm';
+import Pagination from '../Pagination/Pagination';
 
 //Utils
 import { editObjectById } from '../../utils/dataUtils';
@@ -16,6 +17,16 @@ import { editObjectById } from '../../utils/dataUtils';
 const List = () => {
   const [list, setList] = useState(mockedList);
   const [open, setOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  // Calculate the current items to display based on the current page number and items per page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = list.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Pagination function
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleOpen = () => {
     setOpen(true);
@@ -44,7 +55,7 @@ const List = () => {
         <div className={styles.itemTypeHeader}>Name</div>
         <div className={styles.itemDescHeader}>Text</div>
       </div>
-      {list.map((item) => {
+      {currentItems.map((item) => {
         return (
           <ListItem
             key={item.id}
@@ -54,6 +65,12 @@ const List = () => {
           />
         );
       })}
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        totalItems={list.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
       <AddButton handleOpen={handleOpen} />
       <DialogForm
         open={open}
