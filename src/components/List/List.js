@@ -36,7 +36,7 @@ const List = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     setCurrentItems(filteredList.slice(indexOfFirstItem, indexOfLastItem));
-  }, [filteredList, currentPage, list]);
+  }, [filteredList, currentPage, list, itemsPerPage]);
 
   useEffect(() => {
     setFilteredList(list);
