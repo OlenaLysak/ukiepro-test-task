@@ -61,7 +61,7 @@ const DialogForm = ({ open, handleClose, handleAddItem }) => {
   };
 
   return (
-    <div style={{ width: '1000px' }}>
+    <div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Requisition</DialogTitle>
         <DialogContent>

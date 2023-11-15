@@ -58,7 +58,8 @@ const List = () => {
   };
 
   const handleAddItem = (newItem) => {
-    setList((prevItems) => [...prevItems, newItem]);
+    setList((prevItems) => [newItem, ...prevItems]);
+    setCurrentPage(1);
   };
 
   const handleEdit = (newItem) => {
